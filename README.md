@@ -78,12 +78,19 @@
     <li class="lvl-1"><a href="#enumeración-de-host">2. Enumeración de Host</a></li>
     <li class="lvl-2"><a href="#host-discovery">▪️ Host Discovery</a></li>
     <li class="lvl-2"><a href="#host-and-port-scanning">▪️ Host and Port Scanning</a></li>
-    <li class="lvl-1"><a href="#bypass-de-medidas-de-security">3. Bypass de Medidas</a></li>
+	<li class="lvl-2"><a href="#guardando-los-resultados">▪️ Guardando los resultados</a></li>
+	<li class="lvl-2"><a href="#enumeración-de-servicios">▪️ Enumeración de servicios</a></li>
+	<li class="lvl-2"><a href="#nmap-scripting-engine-(nse)">▪️ Nmap Scripting Engine (NSE)</a></li>
+	<li class="lvl-2"><a href="#rendimiento">▪️ Rendimiento</a></li>
+    <li class="lvl-1"><a href="#bypass-de-medidas-de-seguridad">3. Bypass de Medidas de seguridad</a></li>
     <li class="lvl-2"><a href="#firewalls">▪️ Firewalls</a></li>
     <li class="lvl-2"><a href="#ids">▪️ IDS</a></li>
     <li class="lvl-2"><a href="#ips">▪️ IPS</a></li>
+	<li class="lvl-2"><a href="#firewall-vs-ids-ips">▪️ Firewall vs IDS vs IPS</a></li>
+	<li class="lvl-2"><a href="#determinar-las-reglas-del-firewall">▪️ Determinar las reglas del Firewall</a></li>
     <li class="lvl-2"><a href="#ack-scan-sa">▪️ ACK Scan (-sA)</a></li>
-    <li class="lvl-2"><a href="#evasión-avanzada-señuelos-y-suplantación-de-identidad">▪️ Evasión Avanzada</a></li>
+    <li class="lvl-2"><a href="#estrategias-para-la-identificación-de-ids/ips">▪️ Estrategias para la identificación de IDS/IPS</a></li>
+	<li class="lvl-2"><a href="#evasión-avanzada:-señuelos-y-suplantación-de-identidad">▪️ Evasión avanzada: Señuelos y Suplantación de Identidad</a></li>
     <li class="lvl-1"><a href="#explicaciones-adicionales">4. Anexos</a></li>
     <li class="lvl-2"><a href="#arp">▪️ ARP</a></li>
     <li class="lvl-2"><a href="#icmp-y-sus-errores">▪️ ICMP</a></li>
