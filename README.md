@@ -1,4 +1,4 @@
-## Introducción
+# Introducción
 ## Enumeración
 
 >***Enumerar*** implica definir exhaustivamente la ***superficie de ataque***.
