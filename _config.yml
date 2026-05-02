@@ -1,4 +1,4 @@
-remote_theme: midnight@v0.2.0
+remote_theme: pages-themes/midnight@v0.2.0
 title: "Curso de Nmap y Evasión"
 description: "Documentación técnica sobre seguridad perimetral y hacking ético"
 nav_enabled: true
