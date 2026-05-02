@@ -9,7 +9,7 @@ La mayoría de las formas en que podemos acceder a los sistemas destinos las pod
 - ***Funciones y/o recursos que nos permiten interactuar con el objetivo y/o nos proveen de información adicional.***
 - ***Información que nos da información aún más importante para acceder a nuestro objetivo***
 
->[!important]
+>***IMPORTANTE***
 >La mayor parte de la información que obtenemos proviene de configuraciones incorrectas o negligencia en la seguridad de los servicios que están accesibles al público.
 ## Introducción a Nmap
 
@@ -54,7 +54,7 @@ Las ***Solicitudes Echo de ICMP*** (o en inglés "*ICMP Echo Requests*") son un 
 
 Su función es el pilar de la herramienta `ping`: *Un host emisor envía un paquete **Echo Request** a una dirección IP de destino con la expectativa de que, si el host está activo y no hay resctricciones de seguridad o de red, este responda con un paquete **ICMP Echo Reply** (Tipo 0)*.
 
->[!important]
+> ***IMPORTANTE***
 >***ICMP Tipo 8 (Echo Request):*** La "*sonda*" enviada para verificar la actividad de un host.
 >***ICMP Tipo 0 (Echo Reply):*** La respuesta que confirma que el host está activo.
 ### Escanear rango de red
@@ -76,7 +76,7 @@ sudo nmap 192.168.2.0/24 -sn -oA tnet | grep for | cut -d" " -f5
 - `-sn`: Desactiva el escaneo de puertos.
 - `-oA tnet`: Almacena los resultados en todos los formatos comenzando con el nombre "***tnet***".
 
->[!Note]
+> ***NOTA***
 >Es decir, el comando escanea toda la red `192.168.2.0/24` sin tratar de encontrar puertos abiertos (tan solo verificando los hosts activos de la red) y almacena dicho escaneo en todos los formatos posibles  para una revisión posterior manual o automatizada.
 ### Escanear lista de IP
 
@@ -107,7 +107,7 @@ sudo nmap -iL hosts.lst -sn -oA tnet | grep for | cut -d" " -f5
 - `-sn`: Desactiva el escaneo de puertos.
 - `-oA`: Almacena los resultados en todos los formatos comenzando con el nombre "***tnet***".
 
->[!Note]
+>***NOTA***
 >En este ejemplo, solo *3* de los *7* hosts están activos.
 >
 >***¡Ojo!*** Un host que no responde a ICMP no siempre está apagado. En auditorías reales, es común encontrar firewalls que descartan estas sondas para que no podamos realizar conexiones y así asegurar la red.
@@ -144,7 +144,7 @@ MAC Address: AA:BB:CC:DD:EE:FF
 Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds
 ```
 
->[!tip]
+> ***TIP***
 >La opción `-sn` especifica que no queremos realizar un escaneo de puertos en este momento. Por lo que si lo usamos, Nmap realizará automáticamente un escaneo de ping utilizando el protocolo ***ICMP*** para enviar ***Echo Requests (`-PE`)***.  
 ### ARP Ping
 
@@ -188,7 +188,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
 
 >Como podemos ver, aunque especifiquemos la opción `-PE` (***ICMP Echo Request***), Nmap detectó que el objetivo estaba en nuestra misma subred y optó por enviar un `ARP who-has`. Al recibir el `ARP reply`, Nmap confirma que el host está activo sin necesidad de protocolos de capas superiores.
 
->[!tip]
+>***TIP***
 >Si por motivos de auditoría necesitamos probar específicamente la respuesta del firewall ante ICMP, debemos especificarlo mediante la opción `--disable-arp-ping`. 
 >```bash
 >sudo nmap 10.128.2.18 -sn -oA host -PE --packet-trace --disable-arp-ping
@@ -324,7 +324,7 @@ Hasta ahora funciona igual que un escaneo ***Stealth Scan***. No obstante, lo qu
 
 El ***escaneo de conexión TCP*** es una de las ***técnicas menos sigilosas***, ya que establece completamente una conexión, lo que crea registros en la mayoría de los sistemas y es fácilmente detectado por las soluciones ***IDS/IPS*** modernas.
 
->[!important]
+>***IMPORTANT***
 >Desde la perspectiva de un *Blue Team*, la *flag* `-sT` es como dejar una huella dactilar clara: al completar el saludo de tres vías, nuestra IP queda registrada en los logs de la aplicación. Es una técnica "*educada*" pero ruidosa.
 
 También es mas ***lento*** ya que tiene que completar la conexión.
@@ -373,7 +373,7 @@ sequenceDiagram
 - ***ACK (Acknowledge Number):*** Indica el siguiente número de secuencia que el emisor espera recibir. Básicamente dice: "*He recibido todo hasta el número n, ahora mándame el n + 1*".
 - ***El incremento (+1):*** Durante el ***handshake***, aunque no se envíen datos reales, las *flags* ***SYN*** y ***FIN*** consumen un número de secuencia, por eso el ***ACK*** siempre es ***SEQ + 1***.
 
->[!important]
+>***IMPORTANT***
 >Esto es importante porque:
 >1. ***OS Fingerprinting:*** Nmap analiza cómo los diferentes sistemas operativos generan estos números de secuencia (si son muy predecibles o no) apara adivinar si el objetivo es Linux, Windows o un dispositivo de red.
 >2. ***Idle Scan:*** como comentábamos antes en la sección de los ***Estados de los puertos*** (en el estado ***closed|filtered***), el escaneo `-sI` se basa precisamente en observar cómo cambia el campo de identificación de IP (similar a los números de secuencia) en un host *zombie*. 
@@ -591,7 +591,7 @@ Cuando realizamos un escaneo de puertos, siempre es aconsejable guardar los resu
 - ***Salida Grepable*** (`-oG`) con la extensión `.gnmap`.
 - ***Salida XML*** (`-oX`) con la extensión `.xml`.
 
->[!tip]
+>***TIP***
 >También podemos usar la opción `-oA` para guardar los resultados en todos los formatos.
 #### Comando
 
@@ -672,7 +672,7 @@ cat target.xml
 
 Con la salida ***XML***, podemos crear fácilmente informes ***HTML*** que sean fáciles de leer, incluso para personas sin conocimientos técnicos. Esto resulta muy útil para la documentación.
 
->[!tip]
+>***TIP***
 >Para convertir los resultados almacenados del formato ***XML*** a ***HTML***, podemos usar la herramienta `xsltproc`.
 
 ```bash
@@ -1033,7 +1033,7 @@ Optimizando los parámetros ***RTT*** del escaneo (*Nmap* esperará como mínimo
 - ***El escaneo ha detectado a 8 máquinas activas.***
 - Esta vez, el escaneo se ha demorado ***15.79 segundos*** en completarse.
 
->[!important]
+>***IMPORTANT***
 >De esta forma, podemos concluir que ***configurar un tiempo de espera RTT inicial (`--initial-rtt-timeout`) demasiado corto puede hacer que pasemos por alto a algunos hosts***.
 ### Reintentos máximos
 
@@ -1061,7 +1061,7 @@ sudo nmap 192.168.2.0/24 -F --max-retries 0 | grep "/tcp" | wc -l
 
 Si modificamos el número de reintentos a ***0***, observamos que el escaneo nos muestra ***33 puertos abiertos detectados***.
 
->[!important]
+>***IMPORTANT***
 >El flujo de paquetes es el siguiente:
 >```mermaid
 >sequenceDiagram
@@ -1138,7 +1138,7 @@ Esta vez,  hemos especificado que Nmap debe enviar como mínimo ***300 paquetes 
 
 - ***El escaneo ha demorado 7.53 segundos en completarse.***
 
->[!important]
+>***IMPORTANT***
 >Debido a que establecer un número mínimo de paquetes a enviar por segundo no genera un riesgo de perder información, en  ambos escaneos obtenemos los mismos resultados.
 >Sin embargo, el riesgo de esta técnica reside en que:
 >*Si establecemos un número demasiado alto de paquetes a enviar por segundo, sistemas IDS/IPS podrían detectar nuestro escaneo y bloquearnos de alguna forma (habitualmente por IP). O incluso podríamos generar una ataque de **Denegación de Servicios (DoS)**, interrumpiendo servicios críticos o incluso afectando negativamente al Hardware de la red*.
@@ -1164,7 +1164,7 @@ sudo nmap 192.168.2.0/24 -F | grep "/tcp" | wc -l
 37
 ```
 
->[!important]
+>***IMPORTANT***
 >Debido a que establecer un número mínimo de paquetes a enviar por segundo no genera un riesgo de perder información, en  ambos escaneos obtenemos los mismos resultados.
 >Sin embargo, el riesgo de esta técnica reside en que:
 >*Si establecemos una plantilla demasiado agresiva, sistemas IDS/IPS podrían detectar nuestro escaneo y bloquearnos de alguna forma (habitualmente por IP). O incluso podríamos generar una ataque de **Denegación de Servicios (DoS)**, interrumpiendo servicios críticos o incluso afectando negativamente al Hardware de la red*.
@@ -1300,7 +1300,7 @@ El ***TCP Three-way Handshake*** es el proceso fundamental para establecer una c
 
 >Al terminar este proceso, la conexión queda en estado **ESTABLISHED** y ambos dispositivos están listos para intercambiar datos reales. Es una cortesía técnica obligatoria: si no hay apretón de manos, no hay conversación.
 
->[!important]
+>***IMPORTANT***
 >Además de ser el último paquete en el protocolo ***Three-way Handshake***, la bandera ***ACK*** se utiliza en las conexiones TCP ya establecidas para confirmar que el destino a recibido el paquete de forma correcta.
 
 Como podemos ver, el ***paquete ACK*** es el último del protocolo ***Three-way Handshake***, y que después de completarse, se sigue usando para confirmar las recepciones de los paquetes en un flujo de tráfico verídico. Recordemos que Nmap se basa en dicho protocolo para realizar los escaneos de puertos aprovechando la respuesta del servidor para determinar si dicho puerto corre o no algún servicio.
@@ -1355,7 +1355,7 @@ MAC Address: AA:BB:CC:DD:EE:FF (Intel Corporate)
 Nmap done: 1 IP address (1 host up) scanned in 0.09 seconds
 ```
 
->[!Note]
+>***NOTA***
 >En este escaneo (***Stealth Scan (`-sS`)***) podemos ver como el *puerto 21* está filtrado por un firewall con una política ***REJECT*** (ya que obtenemos un mensaje de ***Error ICMP Port 21 Unreachable***); y el *puerto 25* también está filtrado pero con una política ***DROP*** (Ya que no obtenemos ninguna respuesta). Sin embargo, podemos ver como el *puerto 22* ha proseguido con el ***TCP Three-way handshake*** mandando un paquete ***SYN-ACK***, por lo que se marca como abierto.
 
 Este sería el flujo del tráfico normal. Pero que pasaría si en vez de mandar un paquete ***SYN*** mandáramos directamente un paquete ***ACK***?:
@@ -1406,7 +1406,7 @@ MAC Address: AA:BB:CC:DD:EE:FF (Intel Corporate)
 Nmap done: 1 IP address (1 host up) scanned in 0.13 seconds
 ```
 
->[!Note]
+>***NOTA***
 >En este escaneo (***ACK Scan (`-sA`)***) podemos ver como enviamos desde el principio tres paquetes ***ACK*** a la víctima y obtenemos el mismo resultado para los puertos 21 (***ICMP Port 21 Unreachable***, muy probable de que el Firewall sea ***Stateful*** para el puerto 21) y 25 (***sin respuesta***). Mientras que del puerto 22, el cual si está abierto, recibimos un paquete ***RST*** (se marca como `unfiltered`.
 >
 >Podemos ver que el puerto 21 ha dado el mismo error ICMP Port Unreachable incluso cuando hemos realizado el ***ACK Scan***. Esto es una clara demostración de que el firewall está actuando con memoria sobre el estado de las conexiones (***Stateful***).
@@ -1443,7 +1443,7 @@ Tras investigar, he llegado a la conclusión de que es debido a 4 factores princ
     
 	- Si el firewall envía el error ICMP, Nmap tiene la prueba irrefutable de que es un ***REJECT*** administrativo y marcará el puerto como ***filtered***.
 
->[!important]
+>***IMPORTANT***
 >***Aun así existe el riesgo de error.***
 >Si un firewall está muy bien configurado para ***suplantar perfectamente*** al host (mismo *TTL*, mismo *IP ID* secuencial, misma *firma TCP*), Nmap podría marcarlo como ***unfiltered*** pensando que llegó a la víctima, cuando en realidad se quedó en el firewall.
 >
@@ -1476,7 +1476,7 @@ Una vez confirmada la presencia de estos sistemas, el auditor debe pivotar su es
 
 - **Fragmentación y Señuelos:** Utilizar técnicas avanzadas de Nmap para dispersar los paquetes y evitar que los motores de firmas reconozcan el patrón de ataque.
 
->[!important]
+>***IMPORTANT***
 >La detección de un sistema de monitoreo no significa el fin de la auditoría, sino una señal para cambiar hacia un enfoque más quirúrgico y silencioso.
 ## Evasión avanzada: Señuelos y Suplantación de Identidad
 
