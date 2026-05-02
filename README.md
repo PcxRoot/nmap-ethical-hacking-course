@@ -1,3 +1,4 @@
+<!--
 <div style="position: fixed; right: 20px; top: 100px; width: 200px; background: #262222; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; z-index: 1000;" class="sidebar-manual">
   <strong>📍 Navegación</strong>
   <ul style="list-style: none; padding: 0; margin-top: 10px;">
@@ -6,6 +7,7 @@
     <li><a href="#bypass-de-medidas-de-seguridad">3. Bypass de medidas de seguridad</a></li>
   </ul>
 </div>
+-->
 
 <div class="sidebar">
   <strong style="color: white; border-bottom: 1px solid #333; display: block; margin-bottom: 10px;">🛡️ Navegación</strong>
