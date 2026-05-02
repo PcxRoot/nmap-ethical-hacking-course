@@ -7,6 +7,33 @@
   </ul>
 </div>
 
+<div class="sidebar">
+  <strong style="color: white; border-bottom: 1px solid #333; display: block; margin-bottom: 10px;">🛡️ Navegación</strong>
+  <ul style="list-style: none; padding: 0;">
+    <!-- Nivel Principal -->
+    <li><a href="#introducción">1. Introducción</a>
+    </li>
+  </ul>
+  <ul style="list-style: none; padding: 0;">
+    <!-- Nivel Principal -->
+    <li><a href="#enumeración-de-host">2. Enumeración de hosts</a>
+      <!-- Subapartados (con margen a la izquierda) -->
+      <ul style="list-style: none; padding-left: 15px; margin-top: 5px;">
+        <li><a href="#host-discovery">▪️ Host Discovery</a></li>
+        <li><a href="#deteccion-ids">▪️ Detección de IDS</a></li>
+      </ul>
+    </li> 
+    <li style="margin-top: 10px;"><a href="#evasion">4. Técnicas de Evasión</a>
+      <ul style="list-style: none; padding-left: 15px; margin-top: 5px;">
+        <li><a href="#decoys">▪️ Uso de Decoys</a></li>
+        <li><a href="#ip-spoofing">▪️ IP Spoofing</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+#262222
+
 # Introducción
 ## Enumeración
 
