@@ -295,7 +295,9 @@ Nmap done: 1 IP address (1 host ip) scanned in 0.07 seconds
 
 1. Podemos ver desde la línea `SENT` que nosotros (`192.168.2.110`) enviamos un paquete TCP con la bandera ***SYN*** (`S`) a nuestro objetivo (`192.168.2.18`).
 2. En la siguiente línea `RCVD`, podemos ver que el objetivo responde con un paquete TCP que contiene las banderas ***RST*** y ***ACK***. ***RST*** y ***ACK*** son indicadores que se utilizan para acusar del recibo del paquete TCP (***ACK***) y para finalizar la sesión TCP (***RST***).
+
 ##### Solicitud
+
 
 |                         ***Mensaje***                         | ***Descripción***                                                                                                            |
 | :-----------------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -315,6 +317,7 @@ Nmap done: 1 IP address (1 host ip) scanned in 0.07 seconds
 |         `192.168.2.110:63090`         | Muestra nuestra dirección IPv4 y el puerto (***Socket***) al que se responderá.                                                                                  |
 |                `RA`                | Indicadores ***RST*** y ***ACK*** del paquete TCP enviado.<br>- ***RST:*** Indica el fina de una conexión TCP.<br>- ***ACK:*** Indica el recibo del paquete TCP. |
 | `ttl=64 id=0 iplen=40 seq=0 win=0` | Parámetros de encabezado TCP adicionales.                                                                                                                        |
+
 #### Escaneo de conexión TCP
 
 >El ***escaneo de conexión TCP*** (`-sT`) de Nmap utiliza el protocolo ***Three-way Handshake*** para determinar si un puerto está abierto o cerrado.
@@ -329,7 +332,9 @@ El ***escaneo de conexión TCP*** es una de las ***técnicas menos sigilosas***,
 >Desde la perspectiva de un *Blue Team*, la *flag* `-sT` es como dejar una huella dactilar clara: al completar el saludo de tres vías, nuestra IP queda registrada en los logs de la aplicación. Es una técnica "*educada*" pero ruidosa.
 
 También es mas ***lento*** ya que tiene que completar la conexión.
+
 ###### Escaneo de conexión TCP en el puerto 443
+
 ```bash
 sudo nmap 192.168.2.28 -p 443 --packet-trace --diable-arp-ping -Pn -n --reason -sT
 
@@ -345,6 +350,7 @@ PORT    STATE SERVICE REASON
 
 Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds
 ```
+
 ##### TCP Three-way Handshake 
 
 >Es el proceso de tres pasos que utiliza TCP para establecer una conexión fiable entre un cliente y un servidor antes de intercambiar datos. Su objetivo es sincronizar los números de secuencia y confirmar que ambas partes están listas.
@@ -352,7 +358,9 @@ Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds
 1. ***SYN (Synchronize):*** El cliente envía un paquete con la *flag* ***SYN*** activada para iniciar la conexión, proponiendo un número de secuencia inicial (*SEQ = x*).
 2. ***SYN-ACK (Synchronize-Acknowledge):*** El servidor responde con un paquete que tiene las *flags* ***SYN*** y ***ACK*** activas. Indica que acepta la conexión, confirma el número del cliente (*ACK = x + 1*) y envía su propio número de secuencia (*SEQ = y*).
 3. ***ACK (Acknowledge):*** El cliente responde con un paquete ***ACK***, confirmando que recibió la respuesta del servidor (*ACK = y + 1*). En este punto, la conexión queda establecida (***ESTABLISHED***).
+
 ###### Esquema de red
+
 ```mermaid
 sequenceDiagram
     participant C as Cliente (Nmap)
@@ -378,6 +386,7 @@ sequenceDiagram
 >Esto es importante porque:
 >1. ***OS Fingerprinting:*** Nmap analiza cómo los diferentes sistemas operativos generan estos números de secuencia (si son muy predecibles o no) apara adivinar si el objetivo es Linux, Windows o un dispositivo de red.
 >2. ***Idle Scan:*** como comentábamos antes en la sección de los ***Estados de los puertos*** (en el estado ***closed|filtered***), el escaneo `-sI` se basa precisamente en observar cómo cambia el campo de identificación de IP (similar a los números de secuencia) en un host *zombie*. 
+
 #### Escaneo SYN
 
 >El escaneo ***SYN*** también conocido como ***Half-Open Scan*** o ***Stealth Scan***, es la técnica por defecto y la más popular de Nmap cuando se ejecuta con privilegios de administrador ( `sudo`). su principal característica es que nunca llega a completar el ***Three-way Handshake***, lo que lo hace más rápido y menos intrusivo que un escaneo de conexión TCP completa (`-sT`).
@@ -395,7 +404,9 @@ En lugar de establecer una comunicación formal, Nmap "*engaña*" al objetivo pa
 >Hasta aquí es igual que el escaneo TCP (`-sT`). 
 
 3. ***RST:*** Si Nmap recibe un ***SYN-ACK***, ya sabe que el puerto está abierto. en lugar de enviar el ***ACK*** final para completar la conexión, envía un paquete ***RST*** para cerrar la sesión inmediatamente.
+
 ##### Esquema de red
+
 ```mermaid
 sequenceDiagram
     participant C as Nmap (Atacante)
@@ -409,10 +420,13 @@ sequenceDiagram
     C->>S: RST (SEQ=x+1)
     Note over C,S: La conexión se aborta antes de completarse
 ```
+
 ##### Ventajas
+
 - ***Velocidad:*** Al no completar el apretón de manos ni cerrar la conexión de forma elegante, puede escanear miles de puertos en segundos.
 - ***Sigilo relativo:*** Históricamente, muchas aplicaciones no registraban la conexión en sus logs porque la sesión nunca se establecía técnicamente (***ESTABLISHED***). Sin embargo, los IDS modernos detectan este patrón fácilmente.
 - ***Eficiencia:*** consume menos recursos tanto en la máquina atacante como en el objetivo.
+
 ##### Resumen de Respuestas
 
 | ***Respuesta del Objetivo*** | ***Flag Recibida*** | ***Estado en Nmap*** | ***Explicación***                                                                                                                                                 |
@@ -421,11 +435,13 @@ sequenceDiagram
 |       ***RST + ACK***        |        `RST`        |     ***Closed***     | *El puerto responde con tratando de terminar la conexión, lo que indica que en el puerto no está corriendo ningún servicio.*                                      |
 |     ***Sin respuesta***      |     (*Timeout*)     |    ***Filtered***    | *No se recibe respuesta del puerto, lo que indica que hay algún impedimento (como un firewall o un IPS) bloqueando la comunicación entrante.*                     |
 |    ***ICMP Unreachable***    |     (*Tipo 3*)      |    ***Filtered***    | *Se recibe un error de ICMP Destino Inalcanzable, el cual nos indica que hay algún impedimento (como un firewall o un IPS) bloqueando la comunicación entrante.** |
+
 ### Descubriendo puertos UDP abiertos
 
 ***UDP*** es un ***stateless protocol*** (*Protocolo sin estado*) y no requiere un protocolo ***Three-way Handshake*** como ***TCP***. Por lo que no recibimos ningún reconocimiento.
 
 En consecuencia, el tiempo de espera es mucho más largo, lo que hace que los ***escaneos UDP*** (`-sU`) sean mucho ***más lentos*** que los ***escaneos TCP*** (`-sT`, `-sS`). Además, muchos sistemas Linux limitan las respuestas ICMP a una por segundo por defecto, lo que lo hace insufriblemente lento. 
+
 #### Escaneo de puertos UDP
 
 ```bash
@@ -502,6 +518,7 @@ MAC Address: AA:BB:CC:DD:EE:FF (Intel Corporate)
 
 Nmap done: 1 IP address (1 host ip) scanned in 2.06 seconds
 ```
+
 ### Puertos filtrados
 
 La visibilidad de un puerto está condicionada por las políticas del firewall perimetral, que generalmente aplica dos tipos de acciones ante tráfico no autorizado: **DROP** (descartar) y **REJECT** (rechazar). Cuando una sonda es "*dropeada*", el paquete simplemente desaparece en la red; esto obliga a Nmap a entrar en un ciclo de espera (*timeout*) y reintentar la conexión para descartar fallos técnicos. Por defecto, Nmap es persistente y realizará hasta ***10 intentos*** (`--max-retries`), lo que incrementa significativamente el tiempo de escaneo.
@@ -546,6 +563,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
 ```
 
 Como respuesta, recibimos un ***ICMP response*** con ***Type 3*** y ***error code 3***, lo que indica que el puerto deseado es inalcanzable. Por lo que, si sabemos que el host está activo, podemos asumir firmemente que el firewall de este puerto está rechazando los paquetes, y tendremos que analizar este puerto más de cerca más adelante.
+
 ### Escaneo de versiones
 
 >La opción `-sV` se utiliza para obtener información adicional disponible de los puertos abiertos.
@@ -594,6 +612,7 @@ Cuando realizamos un escaneo de puertos, siempre es aconsejable guardar los resu
 
 >***TIP***
 >También podemos usar la opción `-oA` para guardar los resultados en todos los formatos.
+
 #### Comando
 
 ```bash
@@ -611,6 +630,7 @@ MAC Address: AA:BB:CC:DD:EE:FF (Intel Corporate)
 
 Nmap done: 1 IP address (1 host up) scanned in 10.22 seconds
 ```
+
 #### Salida normal
 
 ```
@@ -628,6 +648,7 @@ MAC Adrress: AA:BB:CC:DD:EE:FF (Intel Corporate)
 
 # Nmap done at Tue Jun 16 12:15:03 2020 -- 1 IP address (1 host up) scanned in 10.22 seconds
 ```
+
 #### Salida grepable
 
 ```
@@ -638,6 +659,7 @@ Host: 192.168.2.28 ()    Status: Up
 Host: 192.168.2.28 ()    Ports: 22/open/tc//ssh///, 25/open/tcp//smtp///, 80/open/tcp//http///  Ignored state: closed
 # Nmap done at Tue Jun 16 12:14:53 2020 -- 1 IP address (1 host up) scanned in 10.22 seconds
 ```
+
 #### Salida XML
 
 ```xml
@@ -669,6 +691,7 @@ cat target.xml
 </runstats> 
 </nmaprun>
 ```
+
 ### Hojas de estilo
 
 Con la salida ***XML***, podemos crear fácilmente informes ***HTML*** que sean fáciles de leer, incluso para personas sin conocimientos técnicos. Esto resulta muy útil para la documentación.
