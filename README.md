@@ -2,7 +2,7 @@
   <strong>📍 Navegación</strong>
   <ul style="list-style: none; padding: 0; margin-top: 10px;">
     <li><a href="#introducción">1. Introducción</a></li>
-    <li><a href="#enumeracion-de-host">2. Enumeración de Host</a></li>
+    <li><a href="#enumeración-de-host">2. Enumeración de Host</a></li>
     <li><a href="#bypass-de-medidas-de-seguridad">3. Bypass de medidas de seguridad</a></li>
   </ul>
 </div>
