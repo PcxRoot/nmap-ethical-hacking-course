@@ -1,29 +1,94 @@
+<style>
+  /* Contenedor principal de la Sidebar */
+  .sidebar {
+    position: fixed;
+    left: 15px;
+    top: 50px;
+    width: 260px;
+    height: 85vh;
+    background: #11171e; /* Color profundo para encajar con Midnight */
+    border: 1px solid #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    z-index: 1000;
+    overflow-y: auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+
+  .sidebar h4 {
+    color: #00d4ff;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #1e293b;
+    padding-bottom: 5px;
+  }
+
+  .sidebar ul { list-style: none; padding: 0; margin: 0; }
+  .sidebar li { margin-bottom: 8px; }
+
+  /* Enlaces de Nivel 1 (#) */
+  .sidebar .lvl-1 { 
+    font-weight: bold; 
+    font-size: 14px; 
+    margin-top: 15px;
+  }
+  
+  /* Enlaces de Nivel 2 (##) */
+  .sidebar .lvl-2 { 
+    padding-left: 15px; 
+    font-size: 13px; 
+    opacity: 0.8;
+  }
+
+  .sidebar a {
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: block;
+  }
+
+  .sidebar a:hover {
+    color: #00d4ff;
+    transform: translateX(5px);
+    text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+  }
+
+  /* Ocultar en pantallas pequeñas para no solapar el texto */
+  @media (max-width: 1400px) {
+    .sidebar { display: none; }
+  }
+
+  /* Ajuste de margen para el contenido principal si el sidebar está presente */
+  @media (min-width: 1401px) {
+    body { margin-left: 300px !important; }
+  }
+</style>
+
 <div class="sidebar">
-  <strong style="color: white; border-bottom: 1px solid #333; display: block; margin-bottom: 10px;">🛡️ Navegación</strong>
-  <ul style="list-style: none; padding: 0;">
-    <!-- Nivel Principal -->
-    <li><a href="#introducción">1. Introducción</a>
-    </li>
-  </ul>
-  <ul style="list-style: none; padding: 0;">
-    <!-- Nivel Principal -->
-    <li><a href="#enumeración-de-host">2. Enumeración de hosts</a>
-      <!-- Subapartados (con margen a la izquierda) -->
-      <ul style="list-style: none; padding-left: 15px; margin-top: 5px;">
-        <li><a href="#host-discovery">▪️ Host Discovery</a></li>
-        <li><a href="#deteccion-ids">▪️ Detección de IDS</a></li>
-      </ul>
-    </li> 
-    <li style="margin-top: 10px;"><a href="#evasion">4. Técnicas de Evasión</a>
-      <ul style="list-style: none; padding-left: 15px; margin-top: 5px;">
-        <li><a href="#decoys">▪️ Uso de Decoys</a></li>
-        <li><a href="#ip-spoofing">▪️ IP Spoofing</a></li>
-      </ul>
-    </li>
+  <h4>🛡️ Navegación Nmap</h4>
+  <ul>
+    <li class="lvl-1"><a href="#introducción">1. Introducción</a></li>
+    <li class="lvl-2"><a href="#enumeración">▪️ Enumeración</a></li>
+    <li class="lvl-2"><a href="#introducción-a-nmap">▪️ Introducción a Nmap</a></li>
+    <li class="lvl-2"><a href="#sintaxis">▪️ Sintaxis</a></li>
+    <li class="lvl-2"><a href="#técnicas-de-escaneo">▪️ Técnicas de escaneo</a></li>
+    <li class="lvl-1"><a href="#enumeración-de-host">2. Enumeración de Host</a></li>
+    <li class="lvl-2"><a href="#host-discovery">▪️ Host Discovery</a></li>
+    <li class="lvl-2"><a href="#host-and-port-scanning">▪️ Host and Port Scanning</a></li>
+    <li class="lvl-1"><a href="#bypass-de-medidas-de-security">3. Bypass de Medidas</a></li>
+    <li class="lvl-2"><a href="#firewalls">▪️ Firewalls</a></li>
+    <li class="lvl-2"><a href="#ids">▪️ IDS</a></li>
+    <li class="lvl-2"><a href="#ips">▪️ IPS</a></li>
+    <li class="lvl-2"><a href="#ack-scan-sa">▪️ ACK Scan (-sA)</a></li>
+    <li class="lvl-2"><a href="#evasión-avanzada-señuelos-y-suplantación-de-identidad">▪️ Evasión Avanzada</a></li>
+    <li class="lvl-1"><a href="#explicaciones-adicionales">4. Anexos</a></li>
+    <li class="lvl-2"><a href="#arp">▪️ ARP</a></li>
+    <li class="lvl-2"><a href="#icmp-y-sus-errores">▪️ ICMP</a></li>
   </ul>
 </div>
-
-#262222
 
 # Introducción
 ## Enumeración
