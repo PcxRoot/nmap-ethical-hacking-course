@@ -11,6 +11,7 @@ La mayoría de las formas en que podemos acceder a los sistemas destinos las pod
 
 >***IMPORTANTE***
 >La mayor parte de la información que obtenemos proviene de configuraciones incorrectas o negligencia en la seguridad de los servicios que están accesibles al público.
+
 ## Introducción a Nmap
 
 >***Network Mapper*** (***Nmap***) nació como una solución de código abierto para el mapeo de infraestructuras, permitiendo a los auditores descubrir qué sistemas están operando realmente en un segmento de red mediante el envío de paquetes crudos.
