@@ -1,4 +1,4 @@
-remote_theme: just-the-docs/just-the-docs
+remote_theme: pages-themes/leap-day@v0.2.0
 title: "Curso de Nmap y Evasión"
 description: "Documentación técnica sobre seguridad perimetral y hacking ético"
 nav_enabled: true
